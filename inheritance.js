@@ -4,6 +4,10 @@ const HtmlElement = function (type , text){
     this.id = HtmlElement.prototype.counter++
     this.type = type
     this.text = text
+    if(new.target)
+    {
+        throw new Error("its an abstract class !!!")
+    }
 }
 
 HtmlElement.prototype.counter = 0
@@ -58,20 +62,32 @@ SelectElement.prototype.constructor = SelectElement
 function saveElement(){
     text=document.getElementById("t1").value
     type=document.getElementById("t2").value
-    element1=new HtmlElement(type,text)
-    document.body.append(element1.render())
-}
+    try {
+        element1=new HtmlElement(type,text)
+        document.body.append(element1.render())
+     } catch (error) {
+        console.log(error.message)
+     }
+  }
 
 function saveImage(){
     changedWrite=document.getElementById("t3").value
     src=document.getElementById("t4").value
-    element2=new ImageElement(src,changedWrite)
-    document.body.append(element2.render())
+    try {
+        element2=new ImageElement(src,changedWrite)
+        document.body.append(element2.render())
+    } catch (error) {
+        console.log(error.message)
+    }
 }
 
 function saveSelect(){
     lst=document.getElementById("t5").value
     let arr = lst.split(",")
-    element3=new SelectElement(arr)
-    document.body.append(element3.render())
+    try {
+        element3=new SelectElement(arr)
+        document.body.append(element3.render())
+    } catch (error) {
+        console.log(error.message)
+    }
 }
